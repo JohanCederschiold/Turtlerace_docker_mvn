@@ -1,11 +1,13 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import Domain.Turtle;
+import dataaccess.Database;
 
 public class Race {
 	
@@ -88,6 +90,11 @@ public class Race {
 			System.out.printf("%d: %s with a distance of %d\n", i + 1, 
 					finalStandings.get(i).getTurtle().getName(), finalStandings.get(i).getDistance());
 		}
+		
+
+		Database db = new Database();
+		db.registerResults(finalStandings);
+
 	
 		
 	}
