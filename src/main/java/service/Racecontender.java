@@ -11,6 +11,7 @@ public class Racecontender {
 	private boolean brokeDown = false;
 	private Random random = new Random();
 	private int finishingPosition;
+	private int points;
 	
 
 	public Racecontender(Turtle turtle) {
@@ -41,6 +42,14 @@ public class Racecontender {
 		return finishingPosition;
 	}
 	
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	@Override
 	public String toString () {
 		if (finishingPosition == 1 ) {

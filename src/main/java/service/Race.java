@@ -1,9 +1,10 @@
 package service;
 
-import java.sql.SQLException;
+import java.awt.Point;
+//import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+//import java.util.Random;
 import java.util.stream.Collectors;
 
 import Domain.Turtle;
@@ -16,7 +17,7 @@ public class Race {
 	private final int SLOTS = 8;
 	private final int distance = 100;
 	private int [] finishingPositions = new int [3];
-	private Random random;
+//	private Random random;
 	
 	public Race (Turtle [] contenders) {
 		setContenders(contenders);
@@ -93,7 +94,7 @@ public class Race {
 		
 
 		Database db = new Database();
-		db.registerResults(finalStandings);
+		db.registerResults(setPointsFromRace(getCurrentPositions()));
 
 	
 		
@@ -102,6 +103,15 @@ public class Race {
 	public List<Racecontender> getCurrentPositions () {
 		List<Racecontender> contendersAsList = Arrays.asList(raceContenders);
 		return contendersAsList.stream().sorted((a, b) -> b.getDistance() - a.getDistance()).collect(Collectors.toList());
+	}
+	
+	private List<Racecontender> setPointsFromRace (List<Racecontender> contenders) {
+		List<Racecontender> contendersWithPoints = contenders;
+		int [] points = {12, 10, 8, 5, 4, 3, 2, 1};
+		for (int i = 0 ; i < points.length ; i++ ) {
+			contendersWithPoints.get(i).setPoints(points[i]);
+		}
+		return contendersWithPoints;
 	}
 	
 	

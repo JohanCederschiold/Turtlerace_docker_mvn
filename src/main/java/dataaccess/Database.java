@@ -35,7 +35,7 @@ public class Database {
 //		Lägg till poster
 				PreparedStatement prepStatement = connection.prepareStatement("insert into raceresults values(? , ?)");
 				prepStatement.setString(1, contenders.get(i).getTurtle().getName());
-				prepStatement.setInt(2, contenders.get(i).getFinishingPosition());
+				prepStatement.setInt(2, contenders.get(i).getPoints());
 				prepStatement.execute();
 			}
 			
