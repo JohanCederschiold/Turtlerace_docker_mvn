@@ -1,10 +1,8 @@
 package service;
 
-import java.awt.Point;
-//import java.sql.SQLException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-//import java.util.Random;
 import java.util.stream.Collectors;
 
 import Domain.Turtle;
@@ -17,7 +15,6 @@ public class Race {
 	private final int SLOTS = 8;
 	private final int distance = 100;
 	private int [] finishingPositions = new int [3];
-//	private Random random;
 	
 	public Race (Turtle [] contenders) {
 		setContenders(contenders);
@@ -56,6 +53,16 @@ public class Race {
 	
 	public void startRace () {
 
+		Database db = new Database();
+		int raceNo = 0;
+		try {
+			db.registerRace();
+			raceNo = db.getLastestRaceId();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		
 		boolean raceCompleted = false;
 		int lap = 0;
@@ -92,9 +99,16 @@ public class Race {
 					finalStandings.get(i).getTurtle().getName(), finalStandings.get(i).getDistance());
 		}
 		
+		
+		
 
-		Database db = new Database();
-		db.registerResults(setPointsFromRace(getCurrentPositions()));
+		try {
+			db.registerResults(setPointsFromRace(getCurrentPositions()), raceNo);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	
 		

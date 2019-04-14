@@ -1,6 +1,6 @@
-/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/src/main/java/service/Racecontender.java
-/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/src/main/java/ServletMain.java
-/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/src/main/java/TurtleThread.java
-/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/src/main/java/service/Race.java
-/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/src/main/java/dataaccess/Database.java
-/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/src/main/java/domain/Turtle.java
+/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/RaceServlet/src/main/java/service/Racecontender.java
+/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/RaceServlet/src/main/java/dataaccess/Database.java
+/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/RaceServlet/src/main/java/service/Race.java
+/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/RaceServlet/src/main/java/TurtleThread.java
+/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/RaceServlet/src/main/java/ServletMain.java
+/home/vagrant/TurtleServlet/TurtleServlet_Mavenbuild/RaceServlet/src/main/java/domain/Turtle.java
