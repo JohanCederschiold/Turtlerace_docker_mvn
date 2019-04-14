@@ -61,6 +61,12 @@ public class Race {
 			e2.printStackTrace();
 		}
 		
+		try {
+			db.getAllTurtles();
+		} catch (ClassNotFoundException | SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		int raceNo = 0;
 		try {
 			db.registerRace();

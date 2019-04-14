@@ -15,6 +15,11 @@ public class Turtle {
 		setStamina(stamina);
 		setLuck(luck);
 	}
+	
+	public Turtle(int id, String name, int speed, int stamina, int luck) {
+		this(name, speed, stamina, luck);
+		this.id = id;
+	}
 
 
 	public String getName() {

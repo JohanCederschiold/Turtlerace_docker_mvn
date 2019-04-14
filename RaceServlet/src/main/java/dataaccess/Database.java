@@ -52,9 +52,32 @@ public class Database {
 
 	}
 	
-	public List<Racecontender> getAllResults() {
+	public List<Turtle> getAllTurtles() throws ClassNotFoundException, SQLException {
 		
-		return null;
+		List<Turtle> allTurtles = new ArrayList<>();
+		
+		setUpConnection();
+		
+		PreparedStatement statement = connection.prepareStatement("select * from turtle");
+		ResultSet results = statement.executeQuery();
+		
+		while(results.next()) {
+			int id = results.getInt(1);
+			String name = results.getString(2);
+			int speed = results.getInt(3);
+			int stamina = results.getInt(4);
+			int luck = results.getInt(5); 
+			allTurtles.add(new Turtle(id, name, speed, stamina, luck));
+		}
+		
+		connection.close();
+		
+		for (Turtle turtle: allTurtles) {
+			System.out.println(turtle);
+		}
+
+		
+		return allTurtles;
 		
 	}
 	
