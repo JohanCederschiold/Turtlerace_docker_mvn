@@ -72,11 +72,6 @@ public class Database {
 		
 		connection.close();
 		
-		for (Turtle turtle: allTurtles) {
-			System.out.println(turtle);
-		}
-
-		
 		return allTurtles;
 		
 	}

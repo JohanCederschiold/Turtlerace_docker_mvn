@@ -10,63 +10,78 @@ import dataaccess.Database;
 
 public class Race {
 	
-	private Turtle [] contenders;
+	private Database db;
+//	private Turtle [] contenders;
 	private Racecontender [] raceContenders;
 	private final int SLOTS = 8;
 	private final int distance = 100;
 	private int [] finishingPositions = new int [3];
 	
-	public Race (Turtle [] contenders) {
-		setContenders(contenders);
-		raceContenders = new Racecontender[SLOTS];
-		
-		for (int i = 0 ; i < SLOTS ; i++ ) {
-			raceContenders[i] = new Racecontender(this.contenders[i]);
-		}
-		
-	}
-
-	public Turtle[] getContenders() {
-		return contenders;
-	}
+//	public Race (Turtle [] contenders) {
+//		setContenders(contenders);
+//		raceContenders = new Racecontender[SLOTS];
+//		
+//		for (int i = 0 ; i < SLOTS ; i++ ) {
+//			raceContenders[i] = new Racecontender(this.contenders[i]);
+//		}
+//	}
 	
-	public int [] getFinishingPosition() {
-		return finishingPositions;
-	}
-
-	public void setContenders(Turtle[] contenders) {
-
+	public Race () {
 		
-		if (contenders.length == SLOTS) {
-			this.contenders = contenders;
-		} else if (contenders.length > 3) {
-			this.contenders = Arrays.copyOfRange(contenders, 0, 2);
-		} else {
-			this.contenders = Arrays.copyOf(contenders, 3);
-			for (int i = contenders.length ; i < SLOTS ; i++ ) {
-				System.out.println("called");
-				this.contenders[i] = new Turtle("DefaulTurtle" + i, 7, 7, 7);
-			}
-		}
-	}
-	
-	
-	public void startRace () {
-
-		Database db = new Database();
+//		Instantiate Databaseobject
+		db = new Database();
 		
+//		Check if tables is created (and contains turtles). If not create 8 turtles
 		try {
 			db.instantiateTurtles();
 		} catch (ClassNotFoundException | SQLException e2) {
 			e2.printStackTrace();
 		}
-		
+
+//		Set Racecontenders by getting 8 turtles.
+		raceContenders = new Racecontender[SLOTS];
+		List<Turtle> allTurtles = null;
 		try {
-			db.getAllTurtles();
-		} catch (ClassNotFoundException | SQLException e2) {
-			e2.printStackTrace();
+			allTurtles = db.getAllTurtles();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
 		
+		for (int i = 0 ; i < SLOTS ; i++ ) {
+			raceContenders[i] = new Racecontender(allTurtles.get(i));
+		}
+		
+	}
+
+//	public Turtle[] getContenders() {
+//		return contenders;
+//	}
+	
+	public int [] getFinishingPosition() {
+		return finishingPositions;
+	}
+
+//	public void setContenders(Turtle[] contenders) {
+//
+//		
+//		if (contenders.length == SLOTS) {
+//			this.contenders = contenders;
+//		} else if (contenders.length > 3) {
+//			this.contenders = Arrays.copyOfRange(contenders, 0, 2);
+//		} else {
+//			this.contenders = Arrays.copyOf(contenders, 3);
+//			for (int i = contenders.length ; i < SLOTS ; i++ ) {
+//				System.out.println("called");
+//				this.contenders[i] = new Turtle("DefaulTurtle" + i, 7, 7, 7);
+//			}
+//		}
+//	}
+	
+	
+	public void startRace () {
+
+//		Database db = new Database();
+				
 		int raceNo = 0;
 		try {
 			db.registerRace();
