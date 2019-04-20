@@ -1,6 +1,9 @@
-ServletMain.class
-service/Race.class
 TurtleThread.class
 domain/Turtle.class
-dataaccess/Database.class
+dataaccess/DataStorageFactory.class
+ServletMain.class
+dataaccess/DataStorage.class
+service/Race.class
 service/Racecontender.class
+database/DButil.class
+dataaccess/DataStorageDBconnect.class
