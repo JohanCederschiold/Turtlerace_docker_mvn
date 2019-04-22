@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import domain.Turtle;
 import service.Racecontender;
@@ -21,12 +24,12 @@ public class DButil {
 	private String driver = "org.postgresql.Driver";
 	
 	
-//	Privat kontruktor(för singleton)
+//	Private constructor(for singleton)
 	private DButil () {
 		
 	}
 	
-//	Publik getInstance (för singleton)
+//	Public getInstance (for singleton)
 	public static DButil getInstance () {
 		if (instance == null) {
 			instance = new DButil();
@@ -67,7 +70,7 @@ public class DButil {
 
 	}
 	
-//	Hämtar alla registrerade turtles. 
+//	Get all registered turtles. 
 	public List<Turtle> getAllTurtles() throws ClassNotFoundException, SQLException {
 		
 		List<Turtle> allTurtles = new ArrayList<>();
@@ -92,7 +95,7 @@ public class DButil {
 		
 	}
 	
-//	Registrerar ett race (innan genomförande).
+//	Resgisters a race with date and id.
 	public void registerRace () throws ClassNotFoundException, SQLException {
 		
 		setUpConnection();
@@ -113,7 +116,7 @@ public class DButil {
 	}
 	
 	
-//	Hämtar ID på senast registerade race
+//	Gets the id of the latest registered race. 
 	public int getLastestRaceId () throws ClassNotFoundException, SQLException {
 		
 		setUpConnection();
@@ -205,5 +208,30 @@ public class DButil {
 		connection.close();
 		
 	}
+	
+	
+	public Map<Integer,String> getLatestRaceResults () throws ClassNotFoundException, SQLException {
+		
+		setUpConnection();
+		Map<Integer, String> raceResults = new TreeMap<>();
+		
+		PreparedStatement statement = connection.prepareStatement("select raceresults.position, turtle.name " + 
+				"from raceresults join " + 
+				"turtle on turtle.turtle_id = raceresults.turtleid " + 
+				"where raceid = ?;");
+		statement.setInt(1, getLastestRaceId());
+		ResultSet result = statement.executeQuery();
+
+		
+		while (result.next()) {
+			raceResults.put(result.getInt(1), result.getString(2));
+		}
+		
+		
+		return raceResults;
+		
+	}
+	
+	
 	  
 }
