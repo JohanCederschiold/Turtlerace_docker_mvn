@@ -52,9 +52,12 @@ public class ServletMain extends HttpServlet {
 			response.setContentType("text/json");
 			response.getWriter().println(getAllTurtlesJson());						
 		} else if (userRequest.equals("latest")) {
-			response.setContentType("text/json");
+			response.setContentType("application/json");
 			response.getWriter().println(getLatestRaceResults());
-		} else {
+		} else if (userRequest.equals("leaders")) {
+			response.setContentType("application/json");
+			response.getWriter().println(getLatestRaceResults());
+		}else {
 			response.getWriter().println(userRequest);
 		}
 		
@@ -98,16 +101,40 @@ public class ServletMain extends HttpServlet {
 				jo.put("Turtle", entry.getValue());
 				jsonArray.put(jo);			
 			}
-			
-			
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}
+		}	
 		
 		
 		return jsonArray;
 	}
+	
+	
+	public JSONArray getLeaderboard () {
+		
+		JSONArray jsonArray = new JSONArray();
+		
+		try {
+			Map<String, Integer> raceResults = ds.getLeaderboard();
+			
+			for (Map.Entry<String, Integer> entry : raceResults.entrySet()) {
+				JSONObject jo = new JSONObject();
+				jo.put("Turtle", entry.getKey());
+				jo.put("Totalpoints", entry.getValue());
+				jsonArray.put(jo);			
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		
+		return jsonArray;
+	}
+	
+	
+	
 	
 	
 	
